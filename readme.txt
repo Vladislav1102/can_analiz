@@ -1,0 +1,1 @@
+команда кросс-компиляции "arm-linux-gnueabihf-gcc -o analiz_can main.c -static"
