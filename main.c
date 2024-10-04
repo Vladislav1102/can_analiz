@@ -12,6 +12,7 @@
 #include <time.h>
 #include <stdarg.h>
 #include <stdbool.h>
+// #include <main.h>
 
 FILE *log_file;
 
@@ -23,7 +24,8 @@ void init_log_file() {
     }
 }
 
-void write_log(bool print_timeshtamp, const char * format, ...) {
+
+void write_log(bool on_log, const char * format, ...) {
     char buffer_time[256] = {};
 
     struct timeval tv;
@@ -32,7 +34,7 @@ void write_log(bool print_timeshtamp, const char * format, ...) {
 
     strftime(buffer_time, sizeof(buffer_time), "%Y-%m-%d %H:%M:%S", tm_info);
 
-    if(print_timeshtamp) {
+    if(on_log) {
         fprintf(log_file, "%s.%06ld\t", buffer_time, tm_info);
     }
 
@@ -81,26 +83,59 @@ int open_socket(const char * interface_name) {
 
 int main() {
     init_log_file();
-
-    int can_socket;
-
-    can_socket = open_socket("can0");
-
     struct can_frame can_frame;
 
+    int can_socket = open_socket("can0");
+
     while(1) {
-        int frame = read(can_socket, &can_frame, sizeof(can_frame));
-        if(frame > 0) {
-            write_log(1, "can_id[%X]\t", can_frame.can_id);
-            write_log(0, "frame_len[%X]\t", can_frame.len);
-            for(int i = 0; i < can_frame.can_dlc; i++) {
-                write_log(0, "%X ", can_frame.data[i]);
+       int read_frame = read(can_socket, &can_frame, sizeof(can_frame));
+
+        if(read_frame > 0) {
+        //     write_log(1, "can_id[%X]\t", can_frame.can_id);
+            // write_log(0, "frame_len[%X]\t", can_frame.len);
+
+            // for(int i = 0; i < can_frame.can_dlc; i++) {
+            //     write_log(0, "%X ", can_frame.data[i]);
+            // }
+
+
+           if (can_frame.can_id & CAN_ERR_FLAG) {
+                if (can_frame.can_id & CAN_ERR_BUSOFF) {
+                    write_log(1, "Bus off");
+                    printf("bus off");
+                }
+
+                if(can_frame.can_id & CAN_ERR_ACK) {
+                    write_log(1, "Error ACK flag");
+                }
+
+                if(can_frame.can_id & CAN_ERR_BUSERROR) {
+                    write_log(1, "Bus error");
+                    printf("bus error");
+                }
+
+                if (can_frame.can_id & CAN_ERR_CRTL) {
+                    write_log(1, "controller problem %s", can_frame.data[1]);
+                }
+
+                if (can_frame.can_id & CAN_ERR_LOSTARB) {
+                    write_log(1, "lost arbitration %s", can_frame.data[0]);
+                }
+
+                if (can_frame.can_id & CAN_ERR_TX_TIMEOUT) {
+                    write_log(1, "TX timeout");
+                }
+
+                if (can_frame.can_id & CAN_ERR_TRX) {
+                    write_log(1, "Transceiver status %s", can_frame.data[4]);
+                }
             }
-            write_log(0, "\n");
+
+           //write_log(0, "\n");
         }
         usleep(30000);
     }
-    close(can_socket);
+    close(open_socket("can0"));
     closing_log_file();
 
     return 0;
