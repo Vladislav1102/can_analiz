@@ -35,7 +35,8 @@ void write_log(bool on_log, const char * format, ...) {
     strftime(buffer_time, sizeof(buffer_time), "%Y-%m-%d %H:%M:%S", tm_info);
 
     if(on_log) {
-        fprintf(log_file, "%s.%06ld\t", buffer_time, tm_info);
+        fprintf(log_file, "%s.%06ld\t", buffer_time, tv.tv_usec);
+        fflush(log_file);
     }
 
     va_list args;
@@ -83,14 +84,16 @@ int open_socket(const char * interface_name) {
 
 int main() {
     init_log_file();
+    char close_programm = 0;
+
     struct can_frame can_frame;
 
     int can_socket = open_socket("can0");
 
-    while(1) {
+    while(scanf("%c", &close_programm) == 0) {
        int read_frame = read(can_socket, &can_frame, sizeof(can_frame));
 
-        if(read_frame > 0) {
+        if (read_frame > 0) {
         //     write_log(1, "can_id[%X]\t", can_frame.can_id);
             // write_log(0, "frame_len[%X]\t", can_frame.len);
 
@@ -101,41 +104,74 @@ int main() {
 
            if (can_frame.can_id & CAN_ERR_FLAG) {
                 if (can_frame.can_id & CAN_ERR_BUSOFF) {
-                    write_log(1, "Bus off");
-                    printf("bus off");
+                    write_log(1, "Bus off\n");
+                    printf("bus off\n");
                 }
 
                 if(can_frame.can_id & CAN_ERR_ACK) {
-                    write_log(1, "Error ACK flag");
+                    write_log(1, "Error ACK flag\n");
                 }
 
                 if(can_frame.can_id & CAN_ERR_BUSERROR) {
-                    write_log(1, "Bus error");
-                    printf("bus error");
+                    write_log(1, "Bus error\n");
+                    printf("bus error\n");
                 }
 
                 if (can_frame.can_id & CAN_ERR_CRTL) {
-                    write_log(1, "controller problem %s", can_frame.data[1]);
+                    write_log(1, "controller problem %s\n", can_frame.data[1]);
                 }
 
                 if (can_frame.can_id & CAN_ERR_LOSTARB) {
-                    write_log(1, "lost arbitration %s", can_frame.data[0]);
+                    write_log(1, "lost arbitration %s\n", can_frame.data[0]);
                 }
 
                 if (can_frame.can_id & CAN_ERR_TX_TIMEOUT) {
-                    write_log(1, "TX timeout");
+                    write_log(1, "TX timeout\n");
                 }
 
                 if (can_frame.can_id & CAN_ERR_TRX) {
-                    write_log(1, "Transceiver status %s", can_frame.data[4]);
+                    write_log(1, "Transceiver status %s\n", can_frame.data[4]);
                 }
+
+                if(can_frame.can_id & CAN_ERR_LOSTARB_UNSPEC) {
+                    write_log(1, "Arbitration lost in bit", can_frame.data[0]);
+                }
+
+                if(can_frame.can_id & CAN_ERR_CRTL_UNSPEC) {
+                    write_log(1, "error status of CAN-controller unspecified");
+                }
+
+                if(can_frame.can_id & CAN_ERR_CRTL_RX_OVERFLOW) {
+                    write_log(1, "error status of CAN-controller RX buffer overflow");
+                }
+
+                if(can_frame.can_id & CAN_ERR_CRTL_TX_OVERFLOW) {
+                    write_log(1, "error status of CAN-controller TX buffer overflow");
+                }
+
+                if(can_frame.can_id & CAN_ERR_CRTL_RX_WARNING) {
+                    write_log(1, "error status of CAN-controller reached warning level for RX errors");
+                }
+
+                if(can_frame.can_id & CAN_ERR_CRTL_TX_WARNING) {
+                    write_log(1, "error status of CAN-controller reached warning level for TX errors");
+                }
+
+                if(can_frame.can_id & CAN_ERR_CRTL_RX_PASSIVE) {
+                    write_log(1, "error status of CAN-controller reached error passive status RX");
+                }
+
+                if(can_frame.can_id & CAN_ERR_CRTL_TX_PASSIVE) {
+                    write_log(1, "error status of CAN-controller reached error passive status TX");
+                }
+
             }
 
            //write_log(0, "\n");
         }
         usleep(30000);
     }
-    close(open_socket("can0"));
+    close(can_socket);
     closing_log_file();
 
     return 0;
