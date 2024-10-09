@@ -1,3 +1,6 @@
+#ifndef MAIN_H
+#define MAIN_H
+
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
@@ -12,6 +15,7 @@
 #include <time.h>
 #include <stdarg.h>
 #include <stdbool.h>
+#include <stdint.h>
 
 void init_log_file();   //инициализация лог-файла
 
@@ -21,3 +25,6 @@ void closing_log_file();    //функция закрытия лог-файла
 
 int open_socket(const char * interface_name);   //открытие кан-сокета и его подключение к интерфейсу
 
+void checking_err(struct can_frame *can_frame);
+
+#endif
