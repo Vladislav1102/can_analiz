@@ -1,5 +1,4 @@
-#include "main.h"
-#include <linux/can.h>
+#include "../include/main.h"
 
 void checking_err(struct can_frame *can_frame) {
 

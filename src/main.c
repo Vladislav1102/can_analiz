@@ -1,5 +1,4 @@
-#include "main.h"
-#include <linux/can.h>
+#include "../include/main.h"
 
 FILE *log_file;
 
