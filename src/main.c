@@ -44,7 +44,7 @@ void closing_log_file() {
 int32_t open_socket(const char * interface_name) {
     struct sockaddr_can can_addres;
     struct ifreq can_interface;
-    struct can_filter filter[3];
+    struct can_filter filter;
 
     int8_t can_socket = socket(PF_CAN, SOCK_RAW, CAN_RAW);
 
@@ -72,12 +72,9 @@ int32_t open_socket(const char * interface_name) {
         write_log(1, "Socket connected\n");
     }
 
-//    uint32_t enable_err_can = CAN_ERR_MASK;
+    can_err_mask_t enable_err_can = CAN_ERR_MASK;
 
-        filter[0].can_id = 0x778;
-        filter[0].can_mask = CAN_SFF_MASK;
-
-    if(setsockopt(can_socket, SOL_CAN_RAW, CAN_RAW_FILTER, filter, sizeof(filter)) < 0) {
+    if(setsockopt(can_socket, SOL_CAN_RAW, CAN_RAW_ERR_FILTER, &enable_err_can, sizeof(enable_err_can)) < 0) {
         puts("filter off");
         return -1;
     } 
@@ -101,6 +98,12 @@ int main() {
         //     //write_log(1, "%0X\n", can_frame.data[i]);
         // }
         if (read_frame > 0) {
+            printf("can-id[0x%03X]Error frame received from device with ID: 0x%03X\n", can_frame.can_id, can_frame.can_id & CAN_ERR_MASK);
+            for(int i = 0; i < sizeof(can_frame.data); i++) {
+                printf("[0x%02X]", can_frame.data[i]);
+            }
+            printf("\n");
+
             // write_log(1, "can_id[%X]\t", can_frame.can_id);
             // write_log(0, "frame_len[%X]\t", can_frame.len);
 
@@ -109,15 +112,18 @@ int main() {
             // }
             checking_err(&can_frame);
         } else {
-            puts("Error reading read_frame");
+            close(can_socket);
+            write_log(1, "CAN_Socket close\n");
+            closing_log_file();
+
+            puts("Error reading read_frame\n");
+            return -1;
         }
 
             // write_log(0, "\n");
 
         usleep(5000);
     }
-    close(can_socket);
-    closing_log_file();
 
     return 0;
 }

@@ -2,7 +2,7 @@
 
 void checking_err(struct can_frame *can_frame) {
 
-    if (can_frame->can_id & CAN_EFF_MASK) {
+    if (can_frame->can_id & CAN_ERR_FLAG) {
         if (can_frame->can_id & CAN_ERR_BUSOFF) {
         write_log(1, "can-id[%X] - Bus off\n", can_frame->can_id);
         }
