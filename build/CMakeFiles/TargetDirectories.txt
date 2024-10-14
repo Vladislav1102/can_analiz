@@ -1,0 +1,3 @@
+/home/vladislav/can_analiz/build/CMakeFiles/CANanalyzer.dir
+/home/vladislav/can_analiz/build/CMakeFiles/edit_cache.dir
+/home/vladislav/can_analiz/build/CMakeFiles/rebuild_cache.dir
