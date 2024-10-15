@@ -107,4 +107,26 @@ CMakeFiles/CANanalyzer.dir/src/main.c.o: \
  /usr/lib/gcc-cross/arm-linux-gnueabihf/12/include/stdint.h \
  /usr/arm-linux-gnueabihf/include/stdint.h \
  /usr/arm-linux-gnueabihf/include/bits/wchar.h \
- /usr/arm-linux-gnueabihf/include/bits/stdint-uintn.h
+ /usr/arm-linux-gnueabihf/include/bits/stdint-uintn.h \
+ /usr/arm-linux-gnueabihf/include/signal.h \
+ /usr/arm-linux-gnueabihf/include/bits/signum-generic.h \
+ /usr/arm-linux-gnueabihf/include/bits/signum-arch.h \
+ /usr/arm-linux-gnueabihf/include/bits/types/sig_atomic_t.h \
+ /usr/arm-linux-gnueabihf/include/bits/types/siginfo_t.h \
+ /usr/arm-linux-gnueabihf/include/bits/types/__sigval_t.h \
+ /usr/arm-linux-gnueabihf/include/bits/siginfo-arch.h \
+ /usr/arm-linux-gnueabihf/include/bits/siginfo-consts.h \
+ /usr/arm-linux-gnueabihf/include/bits/types/sigval_t.h \
+ /usr/arm-linux-gnueabihf/include/bits/types/sigevent_t.h \
+ /usr/arm-linux-gnueabihf/include/bits/sigevent-consts.h \
+ /usr/arm-linux-gnueabihf/include/bits/sigaction.h \
+ /usr/arm-linux-gnueabihf/include/bits/sigcontext.h \
+ /usr/arm-linux-gnueabihf/include/asm/sigcontext.h \
+ /usr/arm-linux-gnueabihf/include/bits/types/stack_t.h \
+ /usr/arm-linux-gnueabihf/include/sys/ucontext.h \
+ /usr/arm-linux-gnueabihf/include/bits/sigstack.h \
+ /usr/arm-linux-gnueabihf/include/bits/sigstksz.h \
+ /usr/arm-linux-gnueabihf/include/bits/ss_flags.h \
+ /usr/arm-linux-gnueabihf/include/bits/types/struct_sigstack.h \
+ /usr/arm-linux-gnueabihf/include/bits/sigthread.h \
+ /usr/arm-linux-gnueabihf/include/bits/signal_ext.h
