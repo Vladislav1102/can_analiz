@@ -1,5 +1,7 @@
 #include "../include/main.h"
 
+uint8_t keep_running = 1;
+
 FILE *log_file;
 
 void init_log_file() {
@@ -25,7 +27,7 @@ void write_log(bool on_log, const char * format, ...) {
         strftime(buffer_time, sizeof(buffer_time), "%Y-%m-%d %H:%M:%S", tm_info);   
 
         if(on_log) {
-            fprintf(log_file, "%s.%06ld\t", buffer_time, tv.tv_usec);
+            fprintf(log_file, "[%s.%06ld]\t", buffer_time, tv.tv_usec);
             fflush(log_file);
         }
 
@@ -84,33 +86,44 @@ int32_t open_socket(const char * interface_name) {
     // return can_socket;
 }
 
+void signal_handler(int signum) {
+    if(signum == SIGINT) {
+        keep_running = 0;
+    }
+}
 
-int main() {
+
+int32_t main() {
     init_log_file();
+    uint8_t count = 0;
 
     struct can_frame can_frame;
+    struct timeval start, end;
 
     int32_t can_socket = open_socket("can0");
 
-    while(1) {
-        int read_frame = read(can_socket, &can_frame, sizeof(can_frame));
-        // for(int i = 0; i < can_frame.can_dlc; i++) {
-        //     //write_log(1, "%0X\n", can_frame.data[i]);
-        // }
+    signal(SIGINT, signal_handler);
+
+    while(keep_running) {
+        uint8_t read_frame = read(can_socket, &can_frame, sizeof(can_frame));
+
         if (read_frame > 0) {
-            printf("can-id[0x%03X]Error frame received from device with ID: 0x%03X\n", can_frame.can_id, can_frame.can_id & CAN_ERR_MASK);
-            for(int i = 0; i < sizeof(can_frame.data); i++) {
-                printf("[0x%02X]", can_frame.data[i]);
+            if(can_frame.can_id == 0x778 && can_frame.len == 1 && count == 0) {
+                gettimeofday(&start, NULL);
+                count++;
+            } else if (can_frame.can_id == 0x778 && can_frame.len == 1 && count == 1) {
+                gettimeofday(&end, NULL);
+
+                double time_HB = (end.tv_sec - start.tv_sec) * 1000.0 + (end.tv_usec - start.tv_usec) / 1000.0;
+
+                if(time_HB > 35.0) {
+                    write_log(1, "Time HB - %f\n", time_HB);
+                }
+                
+                count = 0;
             }
-            printf("\n");
 
-            // write_log(1, "can_id[%X]\t", can_frame.can_id);
-            // write_log(0, "frame_len[%X]\t", can_frame.len);
-
-            // for(int i = 0; i < can_frame.can_dlc; i++) {
-            //     write_log(0, "%X ", can_frame.data[i]);
-            // }
-            checking_err(&can_frame);
+//            checking_err(&can_frame);
         } else {
             close(can_socket);
             write_log(1, "CAN_Socket close\n");
@@ -120,10 +133,14 @@ int main() {
             return -1;
         }
 
-            // write_log(0, "\n");
-
         usleep(5000);
     }
+
+    close(can_socket);
+    puts("Socket closed");
+    write_log(1, "CAN_Socket close\n");
+    closing_log_file();
+    puts("log file closed");
 
     return 0;
 }
