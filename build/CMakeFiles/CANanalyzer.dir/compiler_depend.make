@@ -263,12 +263,23 @@ CMakeFiles/CANanalyzer.dir/src/main.c.o: /home/vladislav/can_analiz/src/main.c \
   /usr/arm-linux-gnueabihf/include/bits/ss_flags.h \
   /usr/arm-linux-gnueabihf/include/bits/types/struct_sigstack.h \
   /usr/arm-linux-gnueabihf/include/bits/sigthread.h \
-  /usr/arm-linux-gnueabihf/include/bits/signal_ext.h
+  /usr/arm-linux-gnueabihf/include/bits/signal_ext.h \
+  /usr/arm-linux-gnueabihf/include/fcntl.h \
+  /usr/arm-linux-gnueabihf/include/bits/fcntl.h \
+  /usr/arm-linux-gnueabihf/include/bits/fcntl-linux.h \
+  /usr/arm-linux-gnueabihf/include/bits/stat.h \
+  /usr/arm-linux-gnueabihf/include/bits/struct_stat.h
 
+
+/usr/arm-linux-gnueabihf/include/bits/struct_stat.h:
+
+/usr/arm-linux-gnueabihf/include/bits/fcntl-linux.h:
 
 /home/vladislav/can_analiz/src/main.c:
 
 /usr/arm-linux-gnueabihf/include/bits/signal_ext.h:
+
+/usr/arm-linux-gnueabihf/include/bits/stat.h:
 
 /usr/arm-linux-gnueabihf/include/bits/types/struct_sigstack.h:
 
@@ -287,6 +298,8 @@ CMakeFiles/CANanalyzer.dir/src/main.c.o: /home/vladislav/can_analiz/src/main.c \
 /usr/arm-linux-gnueabihf/include/bits/getopt_core.h:
 
 /usr/arm-linux-gnueabihf/include/bits/types/struct_timespec.h:
+
+/usr/arm-linux-gnueabihf/include/fcntl.h:
 
 /usr/arm-linux-gnueabihf/include/stdint.h:
 
@@ -317,6 +330,8 @@ CMakeFiles/CANanalyzer.dir/src/main.c.o: /home/vladislav/can_analiz/src/main.c \
 /usr/arm-linux-gnueabihf/include/bits/types/__sigval_t.h:
 
 /usr/arm-linux-gnueabihf/include/sys/cdefs.h:
+
+/usr/arm-linux-gnueabihf/include/bits/fcntl.h:
 
 /usr/arm-linux-gnueabihf/include/bits/atomic_wide_counter.h:
 

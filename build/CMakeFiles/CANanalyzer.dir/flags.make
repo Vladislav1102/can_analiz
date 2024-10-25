@@ -6,5 +6,5 @@ C_DEFINES =
 
 C_INCLUDES = -I/home/vladislav/can_analiz/include
 
-C_FLAGS = 
+C_FLAGS = -g
 

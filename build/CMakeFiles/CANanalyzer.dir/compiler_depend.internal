@@ -266,4 +266,9 @@ CMakeFiles/CANanalyzer.dir/src/main.c.o
  /usr/arm-linux-gnueabihf/include/bits/types/struct_sigstack.h
  /usr/arm-linux-gnueabihf/include/bits/sigthread.h
  /usr/arm-linux-gnueabihf/include/bits/signal_ext.h
+ /usr/arm-linux-gnueabihf/include/fcntl.h
+ /usr/arm-linux-gnueabihf/include/bits/fcntl.h
+ /usr/arm-linux-gnueabihf/include/bits/fcntl-linux.h
+ /usr/arm-linux-gnueabihf/include/bits/stat.h
+ /usr/arm-linux-gnueabihf/include/bits/struct_stat.h
 
