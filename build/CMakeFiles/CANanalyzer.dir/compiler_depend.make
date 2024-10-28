@@ -131,7 +131,9 @@ CMakeFiles/CANanalyzer.dir/src/checking_err.c.o: /home/vladislav/can_analiz/src/
   /usr/arm-linux-gnueabihf/include/bits/ss_flags.h \
   /usr/arm-linux-gnueabihf/include/bits/types/struct_sigstack.h \
   /usr/arm-linux-gnueabihf/include/bits/sigthread.h \
-  /usr/arm-linux-gnueabihf/include/bits/signal_ext.h
+  /usr/arm-linux-gnueabihf/include/bits/signal_ext.h \
+  /home/vladislav/can_analiz/include/checking_err.h \
+  /home/vladislav/can_analiz/include/main.h
 
 CMakeFiles/CANanalyzer.dir/src/main.c.o: /home/vladislav/can_analiz/src/main.c \
   /usr/arm-linux-gnueabihf/include/stdc-predef.h \
@@ -388,6 +390,8 @@ CMakeFiles/CANanalyzer.dir/src/main.c.o: /home/vladislav/can_analiz/src/main.c \
 /usr/arm-linux-gnueabihf/include/bits/thread-shared-types.h:
 
 /usr/arm-linux-gnueabihf/include/sys/types.h:
+
+/home/vladislav/can_analiz/include/checking_err.h:
 
 /usr/arm-linux-gnueabihf/include/bits/typesizes.h:
 

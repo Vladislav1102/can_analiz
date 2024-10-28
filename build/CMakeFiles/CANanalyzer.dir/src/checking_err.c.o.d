@@ -129,4 +129,6 @@ CMakeFiles/CANanalyzer.dir/src/checking_err.c.o: \
  /usr/arm-linux-gnueabihf/include/bits/ss_flags.h \
  /usr/arm-linux-gnueabihf/include/bits/types/struct_sigstack.h \
  /usr/arm-linux-gnueabihf/include/bits/sigthread.h \
- /usr/arm-linux-gnueabihf/include/bits/signal_ext.h
+ /usr/arm-linux-gnueabihf/include/bits/signal_ext.h \
+ /home/vladislav/can_analiz/src/../include/checking_err.h \
+ /home/vladislav/can_analiz/src/../include/main.h

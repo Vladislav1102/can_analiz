@@ -1,0 +1,12 @@
+[
+{
+  "directory": "/home/vladislav/can_analiz/build",
+  "command": "arm-linux-gnueabihf-gcc  -I/home/vladislav/can_analiz/include -g -o CMakeFiles/CANanalyzer.dir/src/checking_err.c.o -c /home/vladislav/can_analiz/src/checking_err.c",
+  "file": "/home/vladislav/can_analiz/src/checking_err.c"
+},
+{
+  "directory": "/home/vladislav/can_analiz/build",
+  "command": "arm-linux-gnueabihf-gcc  -I/home/vladislav/can_analiz/include -g -o CMakeFiles/CANanalyzer.dir/src/main.c.o -c /home/vladislav/can_analiz/src/main.c",
+  "file": "/home/vladislav/can_analiz/src/main.c"
+}
+]
