@@ -1,6 +1,9 @@
 #include "../include/main.h"
+#include <bits/types/struct_timeval.h>
+#include <fcntl.h>
+#include <sys/select.h>
 
-uint8_t keep_running = 1;
+volatile uint8_t keep_running = 1;
 
 FILE *log_file;
 
@@ -8,7 +11,8 @@ void init_log_file() {
     log_file = fopen("/var/log/can_error.log", "a");
 
     if (log_file == NULL) {
-        printf("Error opennig log file\n");
+        puts("Error opennig log file");
+        return;
     }
 }
 
@@ -43,19 +47,20 @@ void closing_log_file() {
 }
 
 
-int32_t open_socket(const char * interface_name) {
+int32_t socket_can(const char * interface_name) {
     struct sockaddr_can can_addres;
     struct ifreq can_interface;
-    struct can_filter filter;
+    struct can_filter filter[3];
 
     int8_t can_socket = socket(PF_CAN, SOCK_RAW, CAN_RAW);
 
     if (can_socket >= 0) {
-        printf("Socket opened\n");
+        puts("Socket opened");
         write_log(1, "Socket opened\n");
     } else {
-        printf("Error opening socket\n");
+        puts("Error opening socket");
         write_log(1, "Error opening socket\n");
+        return -1;
     }
 
     strcpy(can_interface.ifr_name, interface_name);
@@ -74,17 +79,9 @@ int32_t open_socket(const char * interface_name) {
         write_log(1, "Socket connected\n");
     }
 
-    can_err_mask_t enable_err_can = CAN_ERR_MASK;
-
-    if(setsockopt(can_socket, SOL_CAN_RAW, CAN_RAW_ERR_FILTER, &enable_err_can, sizeof(enable_err_can)) < 0) {
-        puts("filter off");
-        return -1;
-    } 
-    puts("Filter on");
     return can_socket;
-
-    // return can_socket;
 }
+
 
 void signal_handler(int signum) {
     if(signum == SIGINT) {
@@ -93,54 +90,65 @@ void signal_handler(int signum) {
 }
 
 
+void handle_heartbeat(struct timeval *last_HB, bool flag_HB, struct timeval *now) {
+    uint64_t diff = (now->tv_sec - last_HB->tv_sec) * 1000 + (now->tv_usec - last_HB->tv_usec) / 1000;
+
+    if (diff > 1000 && flag_HB == true) {
+        puts("BUS OFF");
+        flag_HB = false;
+        usleep(1000000);
+    } 
+}
+
+
 int32_t main() {
     init_log_file();
+
+    bool flag_HB = false;
     uint8_t count = 0;
 
     struct can_frame can_frame;
-    struct timeval start, end;
+    struct timeval start, end,last_HB, now;
+    struct timeval timeout = {.tv_sec = 0, .tv_usec = 500000};
 
-    int32_t can_socket = open_socket("can0");
+    int32_t can_socket = socket_can("can0");
 
     signal(SIGINT, signal_handler);
 
     while(keep_running) {
-        uint8_t read_frame = read(can_socket, &can_frame, sizeof(can_frame));
+        fd_set rfds;
+        FD_ZERO(&rfds);
+        FD_SET(can_socket, &rfds);
 
-        if (read_frame > 0) {
-            if(can_frame.can_id == 0x778 && can_frame.len == 1 && count == 0) {
-                gettimeofday(&start, NULL);
-                count++;
-            } else if (can_frame.can_id == 0x778 && can_frame.len == 1 && count == 1) {
-                gettimeofday(&end, NULL);
+        struct timeval timeout_copy = timeout;
 
-                double time_HB = (end.tv_sec - start.tv_sec) * 1000.0 + (end.tv_usec - start.tv_usec) / 1000.0;
+        uint8_t ready = pselect(can_socket + 1, &rfds, NULL, NULL, &timeout_copy, NULL);
 
-                if(time_HB > 35.0) {
-                    write_log(1, "Time HB - %f\n", time_HB);
-                }
-                
-                count = 0;
-            }
-
-//            checking_err(&can_frame);
-        } else {
-            close(can_socket);
-            write_log(1, "CAN_Socket close\n");
-            closing_log_file();
-
-            puts("Error reading read_frame\n");
-            return -1;
+        if (!keep_running) {
+            break;
         }
+        
+        if (ready > 0) {
+            ssize_t read_frame = read(can_socket, &can_frame, sizeof(can_frame));
+            if (read_frame > 0) {
+                if (can_frame.can_id == 0x778) {
+                    gettimeofday(&last_HB, NULL);
+                    flag_HB = true;
+                }
+                checking_err(&can_frame);
+            }
+        }
+        gettimeofday(&now, NULL);
+        handle_heartbeat(&last_HB, flag_HB, &now);
+    }     
 
-        usleep(5000);
-    }
 
     close(can_socket);
     puts("Socket closed");
     write_log(1, "CAN_Socket close\n");
+
     closing_log_file();
     puts("log file closed");
 
-    return 0;
+    return EXIT_SUCCESS;
 }

@@ -1,0 +1,18 @@
+               for (int i = 0; i < can_frame.len; i++) {
+                    printf("[0x%02X]", can_frame.data[i]);
+                }
+    
+                if(can_frame.can_id == 0x778 && count == 0) { 
+                    gettimeofday(&start, NULL);
+                    count++;
+                } else if (can_frame.can_id == 0x778 && count == 1) {
+                    gettimeofday(&end, NULL);
+
+                    double time_HB = (end.tv_sec - start.tv_sec) * 1000.0 + (end.tv_usec - start.tv_usec) / 1000.0;
+
+                    if(time_HB > 35.0) {
+                        write_log(1, "Time HB - %f\n", time_HB);
+                    }
+                    
+                    count = 0;
+                }

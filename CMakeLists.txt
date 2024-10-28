@@ -14,6 +14,7 @@ set(SOURCE_FILES
 
 set(HEADER_FILES
     ../include/main.h
+    ../include/checking_err.h
     )
 
 add_executable(CANanalyzer ${SOURCE_FILES} ${HEADER_FILES})

@@ -16,6 +16,7 @@
 #include <stdarg.h>
 #include <stdbool.h>
 #include <stdint.h>
+#include <signal.h>
 
 void init_log_file();   //инициализация лог-файла
 
@@ -26,5 +27,8 @@ void closing_log_file();    //функция закрытия лог-файла
 int open_socket(const char * interface_name);   //открытие кан-сокета и его подключение к интерфейсу
 
 void checking_err(struct can_frame *can_frame);
+
+void signal_hendler(uint8_t signum);
+
 
 #endif
