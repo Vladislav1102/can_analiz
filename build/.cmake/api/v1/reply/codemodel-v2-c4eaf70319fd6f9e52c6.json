@@ -6,7 +6,7 @@
 			[
 				{
 					"build" : ".",
-					"jsonFile" : "directory-.-Debug-f5ebdc15457944623624.json",
+					"jsonFile" : "directory-.-f5ebdc15457944623624.json",
 					"minimumCMakeVersion" : 
 					{
 						"string" : "3.10"
@@ -19,7 +19,7 @@
 					]
 				}
 			],
-			"name" : "Debug",
+			"name" : "",
 			"projects" : 
 			[
 				{
@@ -39,7 +39,7 @@
 				{
 					"directoryIndex" : 0,
 					"id" : "CANanalyzer::@6890427a1f51a3e7e1df",
-					"jsonFile" : "target-CANanalyzer-Debug-96cd5d68af886e5dfb4e.json",
+					"jsonFile" : "target-CANanalyzer-f3cb309419c279f3b610.json",
 					"name" : "CANanalyzer",
 					"projectIndex" : 0
 				}
@@ -49,8 +49,8 @@
 	"kind" : "codemodel",
 	"paths" : 
 	{
-		"build" : "/home/vladislav/can_analiz/build",
-		"source" : "/home/vladislav/can_analiz"
+		"build" : "/home/debian/can_analiz/build",
+		"source" : "/home/debian/can_analiz"
 	},
 	"version" : 
 	{

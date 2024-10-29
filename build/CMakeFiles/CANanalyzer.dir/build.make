@@ -53,10 +53,10 @@ RM = /usr/bin/cmake -E rm -f
 EQUALS = =
 
 # The top-level source directory on which CMake was run.
-CMAKE_SOURCE_DIR = /home/vladislav/can_analiz
+CMAKE_SOURCE_DIR = /home/debian/can_analiz
 
 # The top-level build directory on which CMake was run.
-CMAKE_BINARY_DIR = /home/vladislav/can_analiz/build
+CMAKE_BINARY_DIR = /home/debian/can_analiz/build
 
 # Include any dependencies generated for this target.
 include CMakeFiles/CANanalyzer.dir/depend.make
@@ -70,32 +70,32 @@ include CMakeFiles/CANanalyzer.dir/progress.make
 include CMakeFiles/CANanalyzer.dir/flags.make
 
 CMakeFiles/CANanalyzer.dir/src/checking_err.c.o: CMakeFiles/CANanalyzer.dir/flags.make
-CMakeFiles/CANanalyzer.dir/src/checking_err.c.o: /home/vladislav/can_analiz/src/checking_err.c
+CMakeFiles/CANanalyzer.dir/src/checking_err.c.o: /home/debian/can_analiz/src/checking_err.c
 CMakeFiles/CANanalyzer.dir/src/checking_err.c.o: CMakeFiles/CANanalyzer.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/vladislav/can_analiz/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_1) "Building C object CMakeFiles/CANanalyzer.dir/src/checking_err.c.o"
-	arm-linux-gnueabihf-gcc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -MD -MT CMakeFiles/CANanalyzer.dir/src/checking_err.c.o -MF CMakeFiles/CANanalyzer.dir/src/checking_err.c.o.d -o CMakeFiles/CANanalyzer.dir/src/checking_err.c.o -c /home/vladislav/can_analiz/src/checking_err.c
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/debian/can_analiz/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_1) "Building C object CMakeFiles/CANanalyzer.dir/src/checking_err.c.o"
+	arm-linux-gnueabihf-gcc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -MD -MT CMakeFiles/CANanalyzer.dir/src/checking_err.c.o -MF CMakeFiles/CANanalyzer.dir/src/checking_err.c.o.d -o CMakeFiles/CANanalyzer.dir/src/checking_err.c.o -c /home/debian/can_analiz/src/checking_err.c
 
 CMakeFiles/CANanalyzer.dir/src/checking_err.c.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing C source to CMakeFiles/CANanalyzer.dir/src/checking_err.c.i"
-	arm-linux-gnueabihf-gcc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -E /home/vladislav/can_analiz/src/checking_err.c > CMakeFiles/CANanalyzer.dir/src/checking_err.c.i
+	arm-linux-gnueabihf-gcc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -E /home/debian/can_analiz/src/checking_err.c > CMakeFiles/CANanalyzer.dir/src/checking_err.c.i
 
 CMakeFiles/CANanalyzer.dir/src/checking_err.c.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling C source to assembly CMakeFiles/CANanalyzer.dir/src/checking_err.c.s"
-	arm-linux-gnueabihf-gcc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -S /home/vladislav/can_analiz/src/checking_err.c -o CMakeFiles/CANanalyzer.dir/src/checking_err.c.s
+	arm-linux-gnueabihf-gcc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -S /home/debian/can_analiz/src/checking_err.c -o CMakeFiles/CANanalyzer.dir/src/checking_err.c.s
 
 CMakeFiles/CANanalyzer.dir/src/main.c.o: CMakeFiles/CANanalyzer.dir/flags.make
-CMakeFiles/CANanalyzer.dir/src/main.c.o: /home/vladislav/can_analiz/src/main.c
+CMakeFiles/CANanalyzer.dir/src/main.c.o: /home/debian/can_analiz/src/main.c
 CMakeFiles/CANanalyzer.dir/src/main.c.o: CMakeFiles/CANanalyzer.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/vladislav/can_analiz/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Building C object CMakeFiles/CANanalyzer.dir/src/main.c.o"
-	arm-linux-gnueabihf-gcc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -MD -MT CMakeFiles/CANanalyzer.dir/src/main.c.o -MF CMakeFiles/CANanalyzer.dir/src/main.c.o.d -o CMakeFiles/CANanalyzer.dir/src/main.c.o -c /home/vladislav/can_analiz/src/main.c
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/debian/can_analiz/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Building C object CMakeFiles/CANanalyzer.dir/src/main.c.o"
+	arm-linux-gnueabihf-gcc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -MD -MT CMakeFiles/CANanalyzer.dir/src/main.c.o -MF CMakeFiles/CANanalyzer.dir/src/main.c.o.d -o CMakeFiles/CANanalyzer.dir/src/main.c.o -c /home/debian/can_analiz/src/main.c
 
 CMakeFiles/CANanalyzer.dir/src/main.c.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing C source to CMakeFiles/CANanalyzer.dir/src/main.c.i"
-	arm-linux-gnueabihf-gcc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -E /home/vladislav/can_analiz/src/main.c > CMakeFiles/CANanalyzer.dir/src/main.c.i
+	arm-linux-gnueabihf-gcc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -E /home/debian/can_analiz/src/main.c > CMakeFiles/CANanalyzer.dir/src/main.c.i
 
 CMakeFiles/CANanalyzer.dir/src/main.c.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling C source to assembly CMakeFiles/CANanalyzer.dir/src/main.c.s"
-	arm-linux-gnueabihf-gcc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -S /home/vladislav/can_analiz/src/main.c -o CMakeFiles/CANanalyzer.dir/src/main.c.s
+	arm-linux-gnueabihf-gcc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -S /home/debian/can_analiz/src/main.c -o CMakeFiles/CANanalyzer.dir/src/main.c.s
 
 # Object files for target CANanalyzer
 CANanalyzer_OBJECTS = \
@@ -109,7 +109,7 @@ CANanalyzer: CMakeFiles/CANanalyzer.dir/src/checking_err.c.o
 CANanalyzer: CMakeFiles/CANanalyzer.dir/src/main.c.o
 CANanalyzer: CMakeFiles/CANanalyzer.dir/build.make
 CANanalyzer: CMakeFiles/CANanalyzer.dir/link.txt
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir=/home/vladislav/can_analiz/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_3) "Linking C executable CANanalyzer"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir=/home/debian/can_analiz/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_3) "Linking C executable CANanalyzer"
 	$(CMAKE_COMMAND) -E cmake_link_script CMakeFiles/CANanalyzer.dir/link.txt --verbose=$(VERBOSE)
 
 # Rule to build all files generated by this target.
@@ -121,6 +121,6 @@ CMakeFiles/CANanalyzer.dir/clean:
 .PHONY : CMakeFiles/CANanalyzer.dir/clean
 
 CMakeFiles/CANanalyzer.dir/depend:
-	cd /home/vladislav/can_analiz/build && $(CMAKE_COMMAND) -E cmake_depends "Unix Makefiles" /home/vladislav/can_analiz /home/vladislav/can_analiz /home/vladislav/can_analiz/build /home/vladislav/can_analiz/build /home/vladislav/can_analiz/build/CMakeFiles/CANanalyzer.dir/DependInfo.cmake --color=$(COLOR)
+	cd /home/debian/can_analiz/build && $(CMAKE_COMMAND) -E cmake_depends "Unix Makefiles" /home/debian/can_analiz /home/debian/can_analiz /home/debian/can_analiz/build /home/debian/can_analiz/build /home/debian/can_analiz/build/CMakeFiles/CANanalyzer.dir/DependInfo.cmake --color=$(COLOR)
 .PHONY : CMakeFiles/CANanalyzer.dir/depend
 

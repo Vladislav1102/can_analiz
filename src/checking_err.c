@@ -152,6 +152,7 @@ void checking_err(struct can_frame *can_frame) {
 
     if (can_frame->data[1] == PDO_NOT_PROCESSED_ONE && can_frame->data[2] == PDO_NOT_PROCESSED_TWO) {
         write_log(1, "CAN-ID:[0x%03X]  -  PDO_NOT_PROCESSED\n", can_frame->can_id);
+        // puts("PDO_NOT_PROCESSED");
     }
 
     if (can_frame->data[1] == PDO_LENGTH_EXCEEDED_ONE && can_frame->data[2] == PDO_LENGTH_EXCEEDED_TWO) {
@@ -176,6 +177,11 @@ void checking_err(struct can_frame *can_frame) {
 
     if (can_frame->data[1] == DEVICE_SPECIFIC_ONE && can_frame->data[2] == DEVICE_SPECIFIC_TWO) {
         write_log(1, "CAN-ID:[0x%03X]  -  DEVICE_SPECIFIC\n", can_frame->can_id);
+        // printf("CAN-ID:[0x%03X]  -  DEVICE_SPECIFIC\n", can_frame->can_id);
+        // for(int i = 0; i < can_frame->len; i++) {
+        //     printf("%02X ", can_frame->data[i]);
+        // }
+        // printf("\n");
     }
 
     if (can_frame->data[1] == DEVICE_IS_IN_ERROR_MODE_ONE && can_frame->data[2] == DEVICE_IS_IN_ERROR_MODE_TWO) {

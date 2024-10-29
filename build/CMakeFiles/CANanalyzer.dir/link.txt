@@ -1,1 +1,1 @@
-arm-linux-gnueabihf-gcc -g  -static CMakeFiles/CANanalyzer.dir/src/checking_err.c.o CMakeFiles/CANanalyzer.dir/src/main.c.o -o CANanalyzer 
+arm-linux-gnueabihf-gcc  -static CMakeFiles/CANanalyzer.dir/src/checking_err.c.o CMakeFiles/CANanalyzer.dir/src/main.c.o -o CANanalyzer 

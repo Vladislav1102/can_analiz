@@ -50,7 +50,7 @@ void closing_log_file() {
 int32_t socket_can(const char * interface_name) {
     struct sockaddr_can can_addres;
     struct ifreq can_interface;
-    struct can_filter filter[3];
+    struct can_filter filter[2];
 
     int8_t can_socket = socket(PF_CAN, SOCK_RAW, CAN_RAW);
 
@@ -73,12 +73,35 @@ int32_t socket_can(const char * interface_name) {
     if (bind(can_socket, (struct sockaddr *)&can_addres, sizeof(can_addres)) < 0) {
         printf("Error connecting socket\n");
         write_log(1, "Error connecting socket\n");
-        return -1;
+        return EXIT_FAILURE;
     } else {
         printf("Socket connected\n");
         write_log(1, "Socket connected\n");
     }
 
+    filter[0].can_id = 0x80;
+    filter[0].can_mask = 0x7F;
+
+    filter[1].can_id = 0x778;
+    filter[2].can_mask = 0x77F;
+
+    if(setsockopt(can_socket, SOL_CAN_RAW, CAN_RAW_FILTER, &filter, sizeof(filter)) < 0) {
+        puts("Error set filter");
+        return EXIT_FAILURE;
+    }
+
+    uint8_t join_filter = 1;
+
+    if(setsockopt(can_socket, SOL_CAN_RAW, CAN_RAW_JOIN_FILTERS, &join_filter, sizeof(join_filter)) < 0) {
+        puts("Error set filter join");
+        return EXIT_FAILURE;
+    }
+
+
+    printf("Filter 0: can_id = 0x%X, can_mask = 0x%X\n", filter[0].can_id, filter[0].can_mask);
+    printf("Filter 1: can_id = 0x%X, can_mask = 0x%X\n", filter[1].can_id, filter[1].can_mask);
+
+    puts("Filter set");
     return can_socket;
 }
 
@@ -131,6 +154,7 @@ int32_t main() {
         if (ready > 0) {
             ssize_t read_frame = read(can_socket, &can_frame, sizeof(can_frame));
             if (read_frame > 0) {
+               printf("%03X\n", can_frame.can_id);
                 if (can_frame.can_id == 0x778) {
                     gettimeofday(&last_HB, NULL);
                     flag_HB = true;

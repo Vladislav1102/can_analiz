@@ -8,13 +8,13 @@ set(CMAKE_C_STANDART_REQUIRED True)
 set(CMAKE_EXE_LINKER_FLAGS "${CMAKE_EXE_LINKER_FLAGS$} -static")
 
 set(SOURCE_FILES
-    ../src/checking_err.c
-    ../src/main.c
+    src/checking_err.c
+    src/main.c
     )
 
 set(HEADER_FILES
-    ../include/main.h
-    ../include/checking_err.h
+    include/checking_err.h
+    include/main.h
     )
 
 add_executable(CANanalyzer ${SOURCE_FILES} ${HEADER_FILES})

@@ -54,10 +54,10 @@ RM = /usr/bin/cmake -E rm -f
 EQUALS = =
 
 # The top-level source directory on which CMake was run.
-CMAKE_SOURCE_DIR = /home/vladislav/can_analiz
+CMAKE_SOURCE_DIR = /home/debian/can_analiz
 
 # The top-level build directory on which CMake was run.
-CMAKE_BINARY_DIR = /home/vladislav/can_analiz/build
+CMAKE_BINARY_DIR = /home/debian/can_analiz/build
 
 #=============================================================================
 # Directory level rules for the build root directory
@@ -81,14 +81,14 @@ clean: CMakeFiles/CANanalyzer.dir/clean
 CMakeFiles/CANanalyzer.dir/all:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/CANanalyzer.dir/build.make CMakeFiles/CANanalyzer.dir/depend
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/CANanalyzer.dir/build.make CMakeFiles/CANanalyzer.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/vladislav/can_analiz/build/CMakeFiles --progress-num=1,2,3 "Built target CANanalyzer"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/debian/can_analiz/build/CMakeFiles --progress-num=1,2,3 "Built target CANanalyzer"
 .PHONY : CMakeFiles/CANanalyzer.dir/all
 
 # Build rule for subdir invocation for target.
 CMakeFiles/CANanalyzer.dir/rule: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/vladislav/can_analiz/build/CMakeFiles 3
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/debian/can_analiz/build/CMakeFiles 3
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 CMakeFiles/CANanalyzer.dir/all
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/vladislav/can_analiz/build/CMakeFiles 0
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/debian/can_analiz/build/CMakeFiles 0
 .PHONY : CMakeFiles/CANanalyzer.dir/rule
 
 # Convenience name for target.

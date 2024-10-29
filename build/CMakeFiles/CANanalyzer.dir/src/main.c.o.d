@@ -1,7 +1,7 @@
 CMakeFiles/CANanalyzer.dir/src/main.c.o: \
- /home/vladislav/can_analiz/src/main.c \
+ /home/debian/can_analiz/src/main.c \
  /usr/arm-linux-gnueabihf/include/stdc-predef.h \
- /home/vladislav/can_analiz/src/../include/main.h \
+ /home/debian/can_analiz/src/../include/main.h \
  /usr/arm-linux-gnueabihf/include/stdio.h \
  /usr/arm-linux-gnueabihf/include/bits/libc-header-start.h \
  /usr/arm-linux-gnueabihf/include/features.h \

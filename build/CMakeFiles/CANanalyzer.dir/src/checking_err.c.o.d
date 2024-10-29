@@ -1,7 +1,7 @@
 CMakeFiles/CANanalyzer.dir/src/checking_err.c.o: \
- /home/vladislav/can_analiz/src/checking_err.c \
+ /home/debian/can_analiz/src/checking_err.c \
  /usr/arm-linux-gnueabihf/include/stdc-predef.h \
- /home/vladislav/can_analiz/src/../include/main.h \
+ /home/debian/can_analiz/src/../include/main.h \
  /usr/arm-linux-gnueabihf/include/stdio.h \
  /usr/arm-linux-gnueabihf/include/bits/libc-header-start.h \
  /usr/arm-linux-gnueabihf/include/features.h \
@@ -130,5 +130,5 @@ CMakeFiles/CANanalyzer.dir/src/checking_err.c.o: \
  /usr/arm-linux-gnueabihf/include/bits/types/struct_sigstack.h \
  /usr/arm-linux-gnueabihf/include/bits/sigthread.h \
  /usr/arm-linux-gnueabihf/include/bits/signal_ext.h \
- /home/vladislav/can_analiz/src/../include/checking_err.h \
- /home/vladislav/can_analiz/src/../include/main.h
+ /home/debian/can_analiz/src/../include/checking_err.h \
+ /home/debian/can_analiz/src/../include/main.h

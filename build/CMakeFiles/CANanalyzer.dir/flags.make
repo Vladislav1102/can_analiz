@@ -4,7 +4,7 @@
 # compile C with arm-linux-gnueabihf-gcc
 C_DEFINES = 
 
-C_INCLUDES = -I/home/vladislav/can_analiz/include
+C_INCLUDES = -I/home/debian/can_analiz/include
 
-C_FLAGS = -g
+C_FLAGS = 
 

@@ -8,8 +8,8 @@ set(CMAKE_DEPENDS_LANGUAGES
 
 # The set of dependency files which are needed:
 set(CMAKE_DEPENDS_DEPENDENCY_FILES
-  "/home/vladislav/can_analiz/src/checking_err.c" "CMakeFiles/CANanalyzer.dir/src/checking_err.c.o" "gcc" "CMakeFiles/CANanalyzer.dir/src/checking_err.c.o.d"
-  "/home/vladislav/can_analiz/src/main.c" "CMakeFiles/CANanalyzer.dir/src/main.c.o" "gcc" "CMakeFiles/CANanalyzer.dir/src/main.c.o.d"
+  "/home/debian/can_analiz/src/checking_err.c" "CMakeFiles/CANanalyzer.dir/src/checking_err.c.o" "gcc" "CMakeFiles/CANanalyzer.dir/src/checking_err.c.o.d"
+  "/home/debian/can_analiz/src/main.c" "CMakeFiles/CANanalyzer.dir/src/main.c.o" "gcc" "CMakeFiles/CANanalyzer.dir/src/main.c.o.d"
   )
 
 # Targets to which this target links.

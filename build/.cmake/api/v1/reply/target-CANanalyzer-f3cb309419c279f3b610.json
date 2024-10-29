@@ -39,17 +39,11 @@
 	"compileGroups" : 
 	[
 		{
-			"compileCommandFragments" : 
-			[
-				{
-					"fragment" : "-g"
-				}
-			],
 			"includes" : 
 			[
 				{
 					"backtrace" : 2,
-					"path" : "/home/vladislav/can_analiz/include"
+					"path" : "/home/debian/can_analiz/include"
 				}
 			],
 			"language" : "C",
@@ -65,10 +59,6 @@
 	{
 		"commandFragments" : 
 		[
-			{
-				"fragment" : "-g",
-				"role" : "flags"
-			},
 			{
 				"fragment" : "-static",
 				"role" : "flags"
@@ -118,12 +108,12 @@
 		},
 		{
 			"backtrace" : 1,
-			"path" : "include/main.h",
+			"path" : "include/checking_err.h",
 			"sourceGroupIndex" : 1
 		},
 		{
 			"backtrace" : 1,
-			"path" : "include/checking_err.h",
+			"path" : "include/main.h",
 			"sourceGroupIndex" : 1
 		}
 	],
