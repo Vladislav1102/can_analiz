@@ -1,7 +1,3 @@
-               for (int i = 0; i < can_frame.len; i++) {
-                    printf("[0x%02X]", can_frame.data[i]);
-                }
-    
                 if(can_frame.can_id == 0x778 && count == 0) { 
                     gettimeofday(&start, NULL);
                     count++;

@@ -3,12 +3,15 @@
 #include <fcntl.h>
 #include <sys/select.h>
 
-volatile uint8_t keep_running = 1;
+#define PATH_TO_LOG_FILE    "/var/log/can_error.log"
+#define TIMEOUT_HB          1000
+
+uint8_t keep_running = 1;
 
 FILE *log_file;
 
 void init_log_file() {
-    log_file = fopen("/var/log/can_error.log", "a");
+    log_file = fopen(PATH_TO_LOG_FILE, "a");
 
     if (log_file == NULL) {
         puts("Error opennig log file");
@@ -25,8 +28,16 @@ void write_log(bool on_log, const char * format, ...) {
         char buffer_time[256] = {};
 
         struct timeval tv;
-        gettimeofday(&tv, NULL);
+        if (gettimeofday(&tv, NULL) != 0){
+            puts("Error getting time");
+            return;
+        }
+        
         struct tm *tm_info = localtime(&tv.tv_sec);
+        if (tm_info == NULL) {
+            puts("Error converting time");
+            return;
+        }
 
         strftime(buffer_time, sizeof(buffer_time), "%Y-%m-%d %H:%M:%S", tm_info);   
 
@@ -79,27 +90,18 @@ int32_t socket_can(const char * interface_name) {
         write_log(1, "Socket connected\n");
     }
 
-    filter[0].can_id = 0x80;
-    filter[0].can_mask = 0x7F;
+    filter[0].can_id = 0x081;
+    filter[0].can_mask = 0x7F0;
 
     filter[1].can_id = 0x778;
-    filter[2].can_mask = 0x77F;
+    filter[1].can_mask = CAN_SFF_MASK;
 
     if(setsockopt(can_socket, SOL_CAN_RAW, CAN_RAW_FILTER, &filter, sizeof(filter)) < 0) {
         puts("Error set filter");
         return EXIT_FAILURE;
     }
 
-    uint8_t join_filter = 1;
-
-    if(setsockopt(can_socket, SOL_CAN_RAW, CAN_RAW_JOIN_FILTERS, &join_filter, sizeof(join_filter)) < 0) {
-        puts("Error set filter join");
-        return EXIT_FAILURE;
-    }
-
-
     printf("Filter 0: can_id = 0x%X, can_mask = 0x%X\n", filter[0].can_id, filter[0].can_mask);
-    printf("Filter 1: can_id = 0x%X, can_mask = 0x%X\n", filter[1].can_id, filter[1].can_mask);
 
     puts("Filter set");
     return can_socket;
@@ -113,14 +115,15 @@ void signal_handler(int signum) {
 }
 
 
-void handle_heartbeat(struct timeval *last_HB, bool flag_HB, struct timeval *now) {
-    uint64_t diff = (now->tv_sec - last_HB->tv_sec) * 1000 + (now->tv_usec - last_HB->tv_usec) / 1000;
+float handle_heartbeat(struct timeval *last_HB, bool flag_HB, struct timeval *now) {
+    float diff = (now->tv_sec - last_HB->tv_sec) * 1000.0 + (now->tv_usec - last_HB->tv_usec) / 1000.0;
 
-    if (diff > 1000 && flag_HB == true) {
+    if (diff > TIMEOUT_HB && flag_HB == true) {
         puts("BUS OFF");
         flag_HB = false;
         usleep(1000000);
-    } 
+    }
+    return diff;
 }
 
 
@@ -131,8 +134,15 @@ int32_t main() {
     uint8_t count = 0;
 
     struct can_frame can_frame;
-    struct timeval start, end,last_HB, now;
+    
+    struct timeval last_HB, now;
     struct timeval timeout = {.tv_sec = 0, .tv_usec = 500000};
+    
+    struct sigaction sa;
+    sa.sa_handler = signal_handler;
+    sigemptyset(&sa.sa_mask);
+    sa.sa_flags = 0;
+    sigaction(SIGINT, &sa, NULL);
 
     int32_t can_socket = socket_can("can0");
 
@@ -154,16 +164,18 @@ int32_t main() {
         if (ready > 0) {
             ssize_t read_frame = read(can_socket, &can_frame, sizeof(can_frame));
             if (read_frame > 0) {
-               printf("%03X\n", can_frame.can_id);
-                if (can_frame.can_id == 0x778) {
+            //    printf("%03X data - %03X\n", can_frame.can_id, can_frame.data[0]);
+                if (can_frame.can_id == 0x778 && can_frame.data[0] == 0x05 && flag_HB == false) {
                     gettimeofday(&last_HB, NULL);
                     flag_HB = true;
+                } else if (can_frame.can_id == 0x778 && can_frame.data[0] == 0x05 && flag_HB == true) {
+                    gettimeofday(&now, NULL);
+                    flag_HB = false;
+                    // printf("TIME HB - %02f\n", handle_heartbeat(&last_HB, flag_HB, &now));
                 }
                 checking_err(&can_frame);
             }
-        }
-        gettimeofday(&now, NULL);
-        handle_heartbeat(&last_HB, flag_HB, &now);
+        }   
     }     
 
 
