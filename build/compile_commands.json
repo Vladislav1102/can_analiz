@@ -1,0 +1,12 @@
+[
+{
+  "directory": "/home/debian/can_analiz/build",
+  "command": "arm-linux-gnueabihf-gcc  -I/home/debian/can_analiz/include -g -o CMakeFiles/CANanalyzer.dir/src/checking_err.c.o -c /home/debian/can_analiz/src/checking_err.c",
+  "file": "/home/debian/can_analiz/src/checking_err.c"
+},
+{
+  "directory": "/home/debian/can_analiz/build",
+  "command": "arm-linux-gnueabihf-gcc  -I/home/debian/can_analiz/include -g -o CMakeFiles/CANanalyzer.dir/src/main.c.o -c /home/debian/can_analiz/src/main.c",
+  "file": "/home/debian/can_analiz/src/main.c"
+}
+]
